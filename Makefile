@@ -6,8 +6,10 @@ GREEN  := $(shell tput -Txterm setaf 2)
 WHITE  := $(shell tput -Txterm setaf 7)
 YELLOW := $(shell tput -Txterm setaf 3)
 RESET  := $(shell tput -Txterm sgr0)
+KEY    := $(shell date +%s | sha256sum | base64 | head -c 32 ; echo)
 
 APPDIR="application/"
+MY_VAR=$(shell echo whatever)
 
 run: docker-up
 
@@ -25,7 +27,7 @@ install-dev: clone
 clone:
 	@if [ ! -e ./$(APPDIR) ]; then \
 		git clone https://github.com/REBELinBLUE/deployer $(APPDIR); \
-		cp env ./$(APPDIR)/.env; \
+		cp phpdocker/laravel_env ./$(APPDIR)/.env; \
 	fi
 
 pull: clone
@@ -36,6 +38,10 @@ docker-up:
 
 docker-down:
 	docker-compose down
+
+generate-key:
+	@sed -i "s/JWT_SECRET=changeme/JWT_SECRET=${KEY}/g" $(APPDIR)/.env
+	@docker-compose exec php-fpm php artisan key:generate --force
 
 create-admin:
 	docker-compose exec php-fpm php artisan deployer:create-user admin admin@example.com changeme --no-email
