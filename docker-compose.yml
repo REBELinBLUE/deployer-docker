@@ -10,6 +10,8 @@ services:
     ports:
       - "6001:6001"
     command: node socket.js
+    links:
+      - redis
 
   beanstalkd:
     image: schickling/beanstalkd
