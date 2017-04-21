@@ -12,6 +12,7 @@ APPDIR="application/"
 MY_VAR=$(shell echo whatever)
 
 run: docker-up
+stop: docker-down
 
 build: install docker-up migrate create-admin
 
@@ -33,6 +34,9 @@ clone:
 pull: clone
 	@cd $(APPDIR) && git pull
 
+status:
+	docker-compose ps
+
 docker-up:
 	docker-compose up -d
 
@@ -48,12 +52,6 @@ create-admin:
 
 migrate:
 	docker-compose exec php-fpm php artisan migrate
-
-mysql:
-	docker-compose exec mysql mysql --i-am-a-dummy -udeployer -psecret deployer
-
-logs:
-	docker-compose logs
 
 clean: docker-stop
 	@cd $(APPDIR) && $(MAKE) clean

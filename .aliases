@@ -1,0 +1,4 @@
+alias artisan="docker-compose exec php-fpm php artisan"
+alias php="docker-compose exec php-fpm php"
+alias mysql="docker-compose exec mysql mysql --i-am-a-dummy -udeployer -psecret deployer"
+alias logs="docker-compose logs"
