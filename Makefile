@@ -53,7 +53,7 @@ create-admin:
 migrate:
 	docker-compose exec php-fpm php artisan migrate
 
-clean: docker-stop
+clean: docker-down
 	@cd $(APPDIR) && $(MAKE) clean
 
 ## Prints this help
