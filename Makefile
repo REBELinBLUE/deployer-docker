@@ -9,7 +9,6 @@ RESET  := $(shell tput -Txterm sgr0)
 KEY    := $(shell date +%s | sha256sum | base64 | head -c 32 ; echo)
 
 APPDIR="application/"
-MY_VAR=$(shell echo whatever)
 
 ## Runs the containers
 run: docker-up
@@ -22,7 +21,7 @@ build: install docker-up migrate create-admin
 
 ## Updates the application
 update: pull install docker-up
-	docker-compose exec php-fpm php artisan app:update
+	docker-compose exec php-fpm php artisan app:update --no-backup
 
 ## Gets the status of the containers
 status:
