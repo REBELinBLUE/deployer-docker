@@ -11,29 +11,20 @@ KEY    := $(shell date +%s | sha256sum | base64 | head -c 32 ; echo)
 APPDIR="application/"
 MY_VAR=$(shell echo whatever)
 
+## Runs the containers
 run: docker-up
+
+## Stops the containers
 stop: docker-down
 
+## Builds the application
 build: install docker-up migrate create-admin
 
+## Updates the application
 update: pull install docker-up
 	docker-compose exec php-fpm php artisan app:update
 
-install: clone
-	@cd $(APPDIR) && $(MAKE) install
-
-install-dev: clone
-	@cd $(APPDIR) && $(MAKE) install-dev
-
-clone:
-	@if [ ! -e ./$(APPDIR) ]; then \
-		git clone https://github.com/REBELinBLUE/deployer $(APPDIR); \
-		cp phpdocker/laravel_env ./$(APPDIR)/.env; \
-	fi
-
-pull: clone
-	@cd $(APPDIR) && git pull
-
+## Gets the status of the containers
 status:
 	docker-compose ps
 
@@ -55,6 +46,21 @@ migrate:
 
 clean: docker-down
 	@cd $(APPDIR) && $(MAKE) clean
+
+install: clone
+	@cd $(APPDIR) && $(MAKE) install
+
+install-dev: clone
+	@cd $(APPDIR) && $(MAKE) install-dev
+
+clone:
+	@if [ ! -e ./$(APPDIR) ]; then \
+		git clone https://github.com/REBELinBLUE/deployer $(APPDIR); \
+		cp phpdocker/laravel_env ./$(APPDIR)/.env; \
+	fi
+
+pull: clone
+	@cd $(APPDIR) && git pull
 
 ## Prints this help
 help:
