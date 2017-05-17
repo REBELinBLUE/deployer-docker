@@ -49,7 +49,6 @@ services:
     links:
       - php-fpm
       - node
-
   worker:
     build:
       context: .
@@ -58,25 +57,35 @@ services:
     working_dir: /application
     volumes:
       - ./application:/application
-      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.1/fpm/conf.d/99-overrides.ini
-    links:
-      - beanstalkd
-      - mysql
-      - redis
+      - ./phpdocker/worker/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
 
-  broadcast:
-    build:
-      context: .
-      dockerfile: phpdocker/broadcast/Dockerfile
-    container_name: deployer-broadcast
-    working_dir: /application
-    volumes:
-      - ./application:/application
-      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.1/fpm/conf.d/99-overrides.ini
-    links:
-      - beanstalkd
-      - mysql
-      - redis
+  # worker:
+  #   build:
+  #     context: .
+  #     dockerfile: phpdocker/worker/Dockerfile
+  #   container_name: deployer-worker
+  #   working_dir: /application
+  #   volumes:
+  #     - ./application:/application
+  #     - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.1/fpm/conf.d/99-overrides.ini
+  #   links:
+  #     - beanstalkd
+  #     - mysql
+  #     - redis
+
+  # broadcast:
+  #   build:
+  #     context: .
+  #     dockerfile: phpdocker/broadcast/Dockerfile
+  #   container_name: deployer-broadcast
+  #   working_dir: /application
+  #   volumes:
+  #     - ./application:/application
+  #     - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.1/fpm/conf.d/99-overrides.ini
+  #   links:
+  #     - beanstalkd
+  #     - mysql
+  #     - redis
 
   php-fpm:
     build:
