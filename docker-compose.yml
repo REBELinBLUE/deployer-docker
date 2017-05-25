@@ -10,6 +10,7 @@ services:
     working_dir: /application
     volumes:
       - ./application:/application
+      - ./phpdocker/node/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
     ports:
       - "6001:6001"
     command: node socket.js
