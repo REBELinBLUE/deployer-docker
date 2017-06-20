@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: phpdocker/node/Dockerfile
-    #image: node:alpine
-    #container_name: deployer-node
     working_dir: /application
     volumes:
       - ./application:/application
@@ -40,6 +38,8 @@ services:
       - MYSQL_DATABASE=deployer
       - MYSQL_USER=deployer
       - MYSQL_PASSWORD=secret
+    ports:
+      - "3306:3306"
 
   webserver:
     image: phpdockerio/nginx:latest
