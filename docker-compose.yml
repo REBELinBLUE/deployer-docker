@@ -63,7 +63,7 @@ services:
     container_name: deployer-worker
     volumes:
       - ./application:/application
-      - ./phpdocker/worker/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./phpdocker/worker/supervisord.conf:/etc/supervisor/supervisord.conf
     links:
       - beanstalkd
       - mysql
