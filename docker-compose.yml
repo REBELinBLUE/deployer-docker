@@ -8,10 +8,10 @@ services:
     working_dir: /application
     volumes:
       - ./application:/application
-      - ./phpdocker/node/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./phpdocker/node/supervisord.conf:/etc/supervisor/supervisord.conf
     ports:
       - "6001:6001"
-    command: node socket.js
+    #command: node socket.js
     links:
       - redis
 
@@ -33,6 +33,8 @@ services:
     image: mysql:5.7
     container_name: deployer-mysql
     working_dir: /application
+    ports:
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=deployer
