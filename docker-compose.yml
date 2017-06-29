@@ -2,6 +2,7 @@ version: "3.1"
 
 services:
   node:
+    container_name: deployer-node
     build:
       context: .
       dockerfile: phpdocker/node/Dockerfile
@@ -11,7 +12,6 @@ services:
       - ./phpdocker/node/supervisord.conf:/etc/supervisor/supervisord.conf
     ports:
       - "6001:6001"
-    #command: node socket.js
     links:
       - redis
 
