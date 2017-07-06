@@ -2,10 +2,11 @@ version: "3.1"
 
 services:
   node:
-    container_name: deployer-node
     build:
       context: .
       dockerfile: phpdocker/node/Dockerfile
+    container_name: deployer-node
+    image: rebelinblue/deployer-node:latest
     working_dir: /application
     volumes:
       - ./application:/application
@@ -61,6 +62,7 @@ services:
       context: .
       dockerfile: phpdocker/worker/Dockerfile
     container_name: deployer-worker
+    image: rebelinblue/deployer-worker:latest
     volumes:
       - ./application:/application
       - ./phpdocker/worker/supervisord.conf:/etc/supervisor/supervisord.conf
@@ -74,6 +76,7 @@ services:
       context: .
       dockerfile: phpdocker/php-fpm/Dockerfile
     container_name: deployer-php-fpm
+    image: rebelinblue/deployer-php-fpm:latest
     working_dir: /application
     volumes:
       - ./application:/application
