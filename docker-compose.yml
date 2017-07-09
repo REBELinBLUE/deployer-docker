@@ -43,6 +43,8 @@ services:
       - MYSQL_PASSWORD=secret
     ports:
       - "3306:3306"
+    volumes:
+      - data:/var/lib/mysql
 
   webserver:
     image: phpdockerio/nginx:latest
@@ -86,3 +88,7 @@ services:
       - mailhog
       - mysql
       - redis
+
+volumes:
+  data:
+    driver: "local"
