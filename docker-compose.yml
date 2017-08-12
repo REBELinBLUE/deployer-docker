@@ -67,7 +67,7 @@ services:
     image: rebelinblue/deployer-worker:latest
     volumes:
       - ./application:/application
-      - ./phpdocker/worker/supervisord.conf:/etc/supervisor/supervisord.conf
+      - ./phpdocker/worker/supervisord.conf:/etc/supervisord.conf
     links:
       - beanstalkd
       - mysql

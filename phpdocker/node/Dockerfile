@@ -8,4 +8,4 @@ RUN \
     && rm -rf /var/cache/apk/* \
     && npm install -g gulp bower
 
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

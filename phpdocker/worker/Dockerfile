@@ -1,5 +1,7 @@
 FROM nielsvdoorn/laravel-supervisor
 
-#RUN rm -r /var/lib/apt/lists/*
+RUN apk --update add openssh && \
+    rm /var/cache/apk/* && \
+    mkdir -p /var/log/supervisor/
 
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+WORKDIR /application
