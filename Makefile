@@ -17,7 +17,10 @@ run: docker-up
 stop: docker-down
 
 ## Builds the application
-build: install docker-up migrate create-admin
+build: docker-up install migrate create-admin
+
+## Rebuilds the docker images
+rebuild: docker-build docker-up install
 
 ## Updates the application
 update: pull install docker-up
@@ -33,6 +36,9 @@ docker-up:
 docker-down:
 	docker-compose down
 
+docker-build:
+	docker-compose build
+
 generate-key:
 	@sed -i "s/JWT_SECRET=changeme/JWT_SECRET=${KEY}/g" $(APPDIR)/.env
 	@docker-compose exec php-fpm php artisan key:generate --force
@@ -47,10 +53,12 @@ clean: docker-down
 	@cd $(APPDIR) && $(MAKE) clean
 
 install: clone
-	@cd $(APPDIR) && $(MAKE) install
+	docker-compose exec php-fpm composer install --optimize-autoloader --no-dev --prefer-dist --no-interaction --no-suggest
+	docker-compose exec node yarn install --production
 
 install-dev: clone
-	@cd $(APPDIR) && $(MAKE) install-dev
+	docker-compose exec php-fpm composer install --no-interaction --no-suggest --prefer-dist --no-suggest
+	docker-compose exec node yarn install
 
 clone:
 	@if [ ! -e ./$(APPDIR) ]; then \

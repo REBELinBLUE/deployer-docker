@@ -74,6 +74,8 @@ services:
       - redis
 
   php-fpm:
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
     build:
       context: .
       dockerfile: phpdocker/php-fpm/Dockerfile
