@@ -43,7 +43,7 @@ generate-key:
 	@sed -i "s/JWT_SECRET=changeme/JWT_SECRET=${KEY}/g" $(APPDIR)/.env
 	@docker-compose exec php-fpm php artisan key:generate --force
 
-create-admin:
+create-admin: generate-key
 	docker-compose exec php-fpm php artisan deployer:create-user admin admin@example.com changeme --no-email
 
 migrate:
