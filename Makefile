@@ -53,11 +53,11 @@ clean: docker-down
 	@cd $(APPDIR) && $(MAKE) clean
 
 install: clone
-	docker-compose exec php-fpm composer install --optimize-autoloader --no-dev --prefer-dist --no-interaction --no-suggest
+	docker-compose run --rm composer install --optimize-autoloader --no-dev --prefer-dist --no-interaction --no-suggest
 	docker-compose exec node yarn install --production
 
 install-dev: clone
-	docker-compose exec php-fpm composer install --no-interaction --no-suggest --prefer-dist --no-suggest
+	docker-compose run --rm composer install --no-interaction --no-suggest --prefer-dist --no-suggest
 	docker-compose exec node yarn install
 
 clone:

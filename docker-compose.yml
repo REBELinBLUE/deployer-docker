@@ -73,9 +73,15 @@ services:
       - mysql
       - redis
 
+  composer:
+    image: composer:latest
+    container_name: deployer-composer
+    volumes:
+      - ./application:/app
+    links:
+      - mysql
+
   php-fpm:
-    environment:
-      - COMPOSER_ALLOW_SUPERUSER=1
     build:
       context: .
       dockerfile: phpdocker/php-fpm/Dockerfile
