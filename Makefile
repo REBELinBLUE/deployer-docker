@@ -20,7 +20,7 @@ stop: docker-down
 build: docker-up install migrate create-admin
 
 ## Rebuilds the docker images
-rebuild: docker-build docker-up install
+rebuild: docker-build docker-up install migrate
 
 ## Updates the application
 update: pull install docker-up
