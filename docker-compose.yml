@@ -74,10 +74,13 @@ services:
       - redis
 
   composer:
+    build:
+      context: .
+      dockerfile: phpdocker/composer/Dockerfile
     image: composer:latest
     container_name: deployer-composer
     volumes:
-      - ./application:/app
+      - ./application:/application
     links:
       - mysql
 

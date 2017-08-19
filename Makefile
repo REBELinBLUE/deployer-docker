@@ -60,6 +60,10 @@ install-dev: clone
 	docker-compose run --rm composer install --no-interaction --no-suggest --prefer-dist --no-suggest
 	docker-compose exec node yarn install
 
+update-deps: clone
+	docker-compose run --rm composer update --no-interaction --no-suggest --prefer-dist --no-suggest
+	docker-compose exec node yarn upgrade
+
 clone:
 	@if [ ! -e ./$(APPDIR) ]; then \
 		git clone https://github.com/REBELinBLUE/deployer $(APPDIR); \
