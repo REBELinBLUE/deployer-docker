@@ -41,8 +41,6 @@ services:
       - MYSQL_DATABASE=deployer
       - MYSQL_USER=deployer
       - MYSQL_PASSWORD=secret
-    ports:
-      - "3306:3306"
     volumes:
       - data:/var/lib/mysql
 
