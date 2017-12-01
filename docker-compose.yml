@@ -86,6 +86,9 @@ services:
     build:
       context: .
       dockerfile: phpdocker/php-fpm/Dockerfile
+    environment:
+      XDEBUG_CONFIG: "remote_host=192.168.128.85"
+      PHP_IDE_CONFIG: "serverName=deployer"
     container_name: deployer-php-fpm
     image: rebelinblue/deployer-php-fpm:latest
     working_dir: /application
