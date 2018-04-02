@@ -75,6 +75,8 @@ services:
     build:
       context: .
       dockerfile: phpdocker/composer/Dockerfile
+    environment:
+      COMPOSER_ALLOW_SUPERUSER: 1
     image: composer:latest
     container_name: deployer-composer
     volumes:
@@ -89,6 +91,7 @@ services:
     environment:
       XDEBUG_CONFIG: "remote_host=192.168.128.85"
       PHP_IDE_CONFIG: "serverName=deployer"
+      COMPOSER_ALLOW_SUPERUSER: 1
     container_name: deployer-php-fpm
     image: rebelinblue/deployer-php-fpm:latest
     working_dir: /application

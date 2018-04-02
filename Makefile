@@ -54,15 +54,15 @@ clean: docker-down
 
 install: clone
 	docker-compose run --rm composer install --optimize-autoloader --no-dev --prefer-dist --no-interaction --no-suggest --ignore-platform-reqs
-	docker-compose exec node yarn install --production
+	docker-compose exec node npm install --production
 
 install-dev: clone
 	docker-compose run --rm composer install --no-interaction --no-suggest --prefer-dist --no-suggest --ignore-platform-reqs
-	docker-compose exec node yarn install
+	docker-compose exec node npm install
 
 update-deps: clone
 	docker-compose run --rm composer update --no-interaction --no-suggest --prefer-dist --no-suggest
-	docker-compose exec node yarn upgrade
+	docker-compose exec node npm upgrade
 
 clone:
 	@if [ ! -e ./$(APPDIR) ]; then \
