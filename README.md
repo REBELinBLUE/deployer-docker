@@ -1,3 +1,6 @@
+This has now been merged into the main deployer project
+
+
 Deployer Container
 ==================
 
